@@ -32,7 +32,7 @@ function attachClickToLinks() {
         list.addEventListener('click', displayList)
     })
 
-    document.getElementById('list-form').addEventListener('click', displayCreateForm)
+    document.getElementById('listForm').addEventListener('click', displayCreateForm)
     document.getElementById('lists').addEventListener('click', getLists)
 }
 
@@ -41,5 +41,18 @@ function displayList(){
 }
 
 function displayCreateForm() {
+    let listFromDiv = document.getElementById('list-form')
+    let html = `
+        <form>
+            <label>Name</label>
+            <input type="text" id="name">
+            <input type="submit">
+        </form>
+    `
+    listFromDiv.innerHTML = html
+    document.querySelector('form').addEventListener('submit', createList)
+}
+
+function createList() {
 
 }
