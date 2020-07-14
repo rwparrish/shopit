@@ -3,39 +3,39 @@ class ItemsController < ApplicationController
 
   # GET /items
   def index
-    @items = Item.all
+    items = Item.all
 
-    render json: @items
+    render json: items
   end
 
   # GET /items/1
   def show
-    render json: @item
+    render json: @exititem
   end
 
   # POST /items
   def create
-    @item = Item.new(item_params)
+    item = Item.new(item_params)
 
-    if @item.save
-      render json: @item, status: :created, location: @item
+    if item.save
+      render json: item, status: :created, location: item
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: item.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /items/1
   def update
-    if @item.update(item_params)
-      render json: @item
+    if item.update(item_params)
+      render json: item
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: item.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /items/1
   def destroy
-    @item.destroy
+    item.destroy
   end
 
   private

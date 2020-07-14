@@ -3,9 +3,9 @@ class ListsController < ApplicationController
 
   # GET /lists
   def index
-    @lists = List.all
+    lists = List.all
 
-    render json: @lists
+    render json: lists
   end
 
   # GET /lists/1
@@ -15,27 +15,27 @@ class ListsController < ApplicationController
 
   # POST /lists
   def create
-    @list = List.new(list_params)
+    list = List.new(list_params)
 
-    if @list.save
-      render json: @list, status: :created, location: @list
+    if list.save
+      render json: list, status: :created, location: list
     else
-      render json: @list.errors, status: :unprocessable_entity
+      render json: list.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /lists/1
   def update
-    if @list.update(list_params)
-      render json: @list
+    if list.update(list_params)
+      render json: list
     else
-      render json: @list.errors, status: :unprocessable_entity
+      render json: list.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /lists/1
   def destroy
-    @list.destroy
+    list.destroy
   end
 
   private
