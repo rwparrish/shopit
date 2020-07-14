@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:3000'
 
-document.addEventListener('load', () => {
+window.addEventListener('load', () => {
     getLists()
 })
 
@@ -22,7 +22,24 @@ function getLists() {
 }
 
 function clearForm() {
-    const listFromDiv = document.getElementById('list-from')
+    const listFromDiv = document.getElementById('list-form')
     listFromDiv.innerHTML = ''
 }
 
+function attachClickToLinks() {
+    const lists = document.querySelectorAll('li a')
+    lists.forEach(list => {
+        list.addEventListener('click', displayList)
+    })
+
+    document.getElementById('list-form').addEventListener('click', displayCreateForm)
+    document.getElementById('lists').addEventListener('click', getLists)
+}
+
+function displayList(){
+
+}
+
+function displayCreateForm() {
+
+}
