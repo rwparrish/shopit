@@ -37,7 +37,7 @@ function attachClickToLinks() {
 }
 
 function displayList(){
-
+    
 }
 
 function displayCreateForm() {
@@ -54,5 +54,28 @@ function displayCreateForm() {
 }
 
 function createList() {
+    event.preventDefault()
+    const list = {
+        name: document.getElementById('name').value
+    }
 
+    fetch(BASE_URL+'/lists', {
+        method: 'POST',
+        body: JSON.stringify(list),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json' 
+        }
+    })
+    .then(resp => resp.json())
+    .then(list => {
+        document.querySelector('#main').innerHTML += `
+        <li>
+            <a href="#" data-id="${list.id}">${list.name}</a>        
+        </li>
+        `
+        
+        attachClickToLinks()
+        clearForm()
+    })
 }
