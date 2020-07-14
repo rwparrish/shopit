@@ -36,8 +36,16 @@ function attachClickToLinks() {
     document.getElementById('lists').addEventListener('click', getLists)
 }
 
-function displayList(){
-    
+function displayList() {
+    clearForm()
+    let id = event.target.dataset.id 
+    let main = document.getElementById('main')
+    main.innerHTML = ''
+    fetch(BASE_URL+'/lists/'+id)
+    .then(resp => resp.json())
+    .then(list => {
+        main.innerHTML += `<h3>${list.name}</h3>`
+    })
 }
 
 function displayCreateForm() {
