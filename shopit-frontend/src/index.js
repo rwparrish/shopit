@@ -21,3 +21,8 @@ function getLists() {
     })
 }
 
+function clearForm() {
+    const listFromDiv = document.getElementById('list-from')
+    listFromDiv.innerHTML = ''
+}
+
