@@ -84,14 +84,13 @@ function createList() {
     })
     .then(resp => resp.json())
     .then(list => {
-        document.querySelector('#show-lists ul').innerHTML += `
-        <li>
-            <a href="#" data-id="${list.id}">${list.name}</a>        
-        </li>
-        `
-        attachClickToLinks()
-        clearForm()
-    })
+            const showLists = document.querySelector('#show-lists ul')
+            let shoppingList = new List(list)
+            showLists.innerHTML += shoppingList.renderList()
+            shoppingList.renderUls()
+            attachClickToLinks()
+            clearForm()
+        })
 }
 
 class List {
