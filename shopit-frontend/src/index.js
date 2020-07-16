@@ -12,18 +12,12 @@ function getLists() {
     .then(resp => resp.json())
     .then(lists => {
         lists.forEach(list => {
-        let li = `
-            <li id="list-${list.id}">
-                <a href="#" data-id="${list.id}">${list.name}</a>
-                <ul id="items">
-                </ul>        
-            </li>
-        `
-        showLists.innerHTML += li
+            let shoppingList = new List(list)
+            showLists.innerHTML += shoppingList.render()
 
-        let ul = document.querySelector(`li#list-${list.id} #items`)
-        list.items.forEach(item => {
-            ul.innerHTML += `<li>${item.name}</li>`
+            let ul = document.querySelector(`li#list-${list.id} #items`)
+            list.items.forEach(item => {
+                ul.innerHTML += `<li>${item.name}</li>`
         })
     })
         attachClickToLinks()
