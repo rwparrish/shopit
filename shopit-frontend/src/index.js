@@ -6,12 +6,12 @@ window.addEventListener('load', () => {
 
 function getLists() {
     clearForm()
-    const main = document.getElementById('main')
-    main.innerHTML = ''
+    const showLists = document.getElementById('show-lists')
+    showLists.innerHTML = ''
     fetch(BASE_URL+'/lists')
     .then(resp => resp.json())
     .then(lists => {
-        main.innerHTML += lists.map(list => `
+        showLists.innerHTML += lists.map(list => `
             <li>
                 <a href="#" data-id="${list.id}">${list.name}</a>        
             </li>
@@ -19,6 +19,13 @@ function getLists() {
 
         attachClickToLinks()
     })
+}
+
+function clearuls() {
+    const showLists = document.querySelector('#show-lists ul')
+    showLists.innerHTML = ''
+    const showList = document.querySelector('#show-list ul')
+    showList.innerHTML = ''
 }
 
 function clearForm() {
@@ -39,12 +46,12 @@ function attachClickToLinks() {
 function displayList() {
     clearForm()
     let id = event.target.dataset.id 
-    let main = document.getElementById('main')
-    main.innerHTML = ''
+    let showLists = document.getElementById('show-lists')
+    showLists.innerHTML = ''
     fetch(BASE_URL+'/lists/'+id)
     .then(resp => resp.json())
     .then(list => {
-        main.innerHTML += `<h3>${list.name}</h3>`
+        showLists.innerHTML += `<h3>${list.name}</h3>`
     })
 }
 
@@ -77,7 +84,7 @@ function createList() {
     })
     .then(resp => resp.json())
     .then(list => {
-        document.querySelector('#main').innerHTML += `
+        document.querySelector('#show-lists').innerHTML += `
         <li>
             <a href="#" data-id="${list.id}">${list.name}</a>        
         </li>
