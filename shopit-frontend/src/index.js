@@ -6,25 +6,34 @@ window.addEventListener('load', () => {
 
 function getLists() {
     clearForm()
-    const showLists = document.getElementById('show-lists')
-    showLists.innerHTML = ''
+    clearUls()
+    const showLists = document.querySelector('#show-lists ul')
     fetch(BASE_URL+'/lists')
     .then(resp => resp.json())
     .then(lists => {
-        showLists.innerHTML += lists.map(list => `
-            <li>
-                <a href="#" data-id="${list.id}">${list.name}</a>        
+        lists.forEach(list => {
+        let li = `
+            <li id="list-${list.id}">
+                <a href="#" data-id="${list.id}">${list.name}</a>
+                <ul id="items">
+                </ul>        
             </li>
-        `).join('')
+        `
+        showLists.innerHTML += li
 
+        let ul = document.querySelector(`li#list-${list.id} #items`)
+        list.items.forEach(item => {
+            ul.innerHTML += `<li>${item.name}</li>`
+        })
+    })
         attachClickToLinks()
     })
 }
 
-function clearuls() {
+function clearUls() {
     const showLists = document.querySelector('#show-lists ul')
     showLists.innerHTML = ''
-    const showList = document.querySelector('#show-list ul')
+    const showList = document.querySelector('#show-list')
     showList.innerHTML = ''
 }
 
@@ -45,8 +54,9 @@ function attachClickToLinks() {
 
 function displayList() {
     clearForm()
+    clearUls()
     let id = event.target.dataset.id 
-    let showLists = document.getElementById('show-lists')
+    let showLists = document.getElementById('show-list')
     showLists.innerHTML = ''
     fetch(BASE_URL+'/lists/'+id)
     .then(resp => resp.json())
@@ -84,12 +94,11 @@ function createList() {
     })
     .then(resp => resp.json())
     .then(list => {
-        document.querySelector('#show-lists').innerHTML += `
+        document.querySelector('#show-lists ul').innerHTML += `
         <li>
             <a href="#" data-id="${list.id}">${list.name}</a>        
         </li>
         `
-        
         attachClickToLinks()
         clearForm()
     })
