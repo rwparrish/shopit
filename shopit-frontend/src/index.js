@@ -42,6 +42,7 @@ function attachClickToLinks() {
     document.getElementById('lists').addEventListener('click', getLists)
     document.querySelectorAll('#delete').forEach(item => item.addEventListener('click', deleteItem))
     document.querySelectorAll('#update-item').forEach(item => item.addEventListener('click', updateItem))
+    document.querySelectorAll('#add-item').forEach(list => list.addEventListener('click', displayCreateItemForm))
 }
 
 function displayList() {
@@ -95,14 +96,34 @@ function createList() {
         })
 }
 
+function displayCreateItemForm() {
+    let itemFromDiv = document.getElementById('item-form')
+    let listId = Number(event.target.dataset.id)
+    let html = `
+        <form>
+            <label>Name</label>
+            <input type="text" id="name">
+            <label>Description</label>
+            <input type="text" id="description">
+            <label>Bought</label>
+            <input type="checkbox" id="bought">
+            <label>Quantity</label>
+            <input type="text" id="quantity">
+            <input type="hidden" id="list_id" value="${listId}">
+            <input type="submit">
+        </form>
+    `
+    itemFromDiv.innerHTML = html
+    document.querySelector('form').addEventListener('submit', createItem)
+}
+
 function createItem() {
     event.preventDefault()
-    const list = {
+    const item = {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
-        baught: document.getElementById('bought').value,
+        baught: document.getElementById('bought').checked,
         quantity: document.getElementById('quantity').value,
-        list_id: document.getElementById('list-id').value
     }
 
     fetch(BASE_URL+'/lists', {
@@ -127,29 +148,3 @@ function createItem() {
 function deleteItem() {}
 function updateItem() {}
 
-class List {
-    constructor(list) {
-        this.id = list.id
-        this.name = list.name
-        this.items = list.items
-    }
-
-    renderList() {
-        return `
-            <li id="list-${this.id}">
-                <a href="#" data-id="${this.id}">${this.name}</a>
-                <ul id="items">
-                </ul>
-                        
-            </li> `
-    }
-
-    renderUls() {
-        let ul = document.querySelector(`li#list-${this.id} #items`)
-            this.items.forEach(item => {
-            ul.innerHTML += `<li>${item.name}
-            <button id='delete' data-id${item.id}>Delete</button>
-            <button id='update-item' data-id${item.id}>Edit</button></li>`
-        })
-    }
-}
