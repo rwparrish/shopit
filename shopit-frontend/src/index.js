@@ -40,6 +40,8 @@ function attachClickToLinks() {
 
     document.getElementById('listForm').addEventListener('click', displayCreateForm)
     document.getElementById('lists').addEventListener('click', getLists)
+    document.querySelectorAll('#delete').forEach(item => item.addEventListener('click', deleteItem))
+    document.querySelectorAll('#update-item').forEach(item => item.addEventListener('click', updateItem))
 }
 
 function displayList() {
@@ -93,6 +95,38 @@ function createList() {
         })
 }
 
+function createItem() {
+    event.preventDefault()
+    const list = {
+        name: document.getElementById('name').value,
+        description: document.getElementById('description').value,
+        baught: document.getElementById('bought').value,
+        quantity: document.getElementById('quantity').value,
+        list_id: document.getElementById('list-id').value
+    }
+
+    fetch(BASE_URL+'/lists', {
+        method: 'POST',
+        body: JSON.stringify(list),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json' 
+        }
+    })
+    .then(resp => resp.json())
+    .then(list => {
+            const showLists = document.querySelector('#show-lists ul')
+            let shoppingList = new List(list)
+            showLists.innerHTML += shoppingList.renderList()
+            shoppingList.renderUls()
+            attachClickToLinks()
+            clearForm()
+        })
+}
+
+function deleteItem() {}
+function updateItem() {}
+
 class List {
     constructor(list) {
         this.id = list.id
@@ -105,14 +139,17 @@ class List {
             <li id="list-${this.id}">
                 <a href="#" data-id="${this.id}">${this.name}</a>
                 <ul id="items">
-                </ul>        
+                </ul>
+                        
             </li> `
     }
 
     renderUls() {
         let ul = document.querySelector(`li#list-${this.id} #items`)
             this.items.forEach(item => {
-            ul.innerHTML += `<li>${item.name}</li>`
+            ul.innerHTML += `<li>${item.name}
+            <button id='delete' data-id${item.id}>Delete</button>
+            <button id='update-item' data-id${item.id}>Edit</button></li>`
         })
     }
 }
