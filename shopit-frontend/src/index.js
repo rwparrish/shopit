@@ -124,7 +124,7 @@ function createItem() {
         description: document.getElementById('description').value,
         baught: document.getElementById('bought').checked,
         quantity: document.getElementById('quantity').value,
-        list_id: document.getElementById('')
+        list_id: document.getElementById('list_id').value
     }
 
     fetch(BASE_URL+'/items', {
@@ -137,10 +137,10 @@ function createItem() {
     })
     .then(resp => resp.json())
     .then(item => {
-            const showItems = document.querySelector('#show-lists ul')
+            // const showItems = document.querySelector('#show-lists ul')
             let newItem = new Item(item)
-            showItems.innerHTML += newItem.renderList()
-            shoppingList.renderUls()
+            // showItems.innerHTML += newItem.renderList()
+            // shoppingList.renderUls()
             attachClickToLinks()
             clearForm()
         })
