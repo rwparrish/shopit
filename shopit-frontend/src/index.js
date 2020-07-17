@@ -124,21 +124,22 @@ function createItem() {
         description: document.getElementById('description').value,
         baught: document.getElementById('bought').checked,
         quantity: document.getElementById('quantity').value,
+        list_id: document.getElementById('')
     }
 
-    fetch(BASE_URL+'/lists', {
+    fetch(BASE_URL+'/items', {
         method: 'POST',
-        body: JSON.stringify(list),
+        body: JSON.stringify(item),
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json' 
         }
     })
     .then(resp => resp.json())
-    .then(list => {
-            const showLists = document.querySelector('#show-lists ul')
-            let shoppingList = new List(list)
-            showLists.innerHTML += shoppingList.renderList()
+    .then(item => {
+            const showItems = document.querySelector('#show-lists ul')
+            let newItem = new Item(item)
+            showItems.innerHTML += newItem.renderList()
             shoppingList.renderUls()
             attachClickToLinks()
             clearForm()
