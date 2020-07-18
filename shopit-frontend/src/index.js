@@ -41,7 +41,7 @@ function attachClickToLinks() {
     document.getElementById('listForm').addEventListener('click', displayCreateForm)
     document.getElementById('lists').addEventListener('click', getLists)
     document.querySelectorAll('#delete').forEach(item => item.addEventListener('click', deleteItem))
-    document.querySelectorAll('#update-item').forEach(item => item.addEventListener('click', updateItem))
+    document.querySelectorAll('#update-item').forEach(item => item.addEventListener('click', editItem))
     document.querySelectorAll('#add-item').forEach(list => list.addEventListener('click', displayCreateItemForm))
 }
 
@@ -145,30 +145,31 @@ function createItem() {
             clearForm()
         })
 }
+// not working 
+function deleteItem() {
+    event.preventDefault()
+    clearForm()
 
-// function deleteItem() {
-//     event.preventDefault()
-//     clearForm()
+    fetch(BASE_URL+`/items/${event.target.dataset.id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json' 
+        }
+    })
+    .then(event.target.parentElement.remove())
+}
 
-//     fetch(BASE_URL+`/items/${event.target.dataset.id}`, {
-//         method: 'DELETE',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Accept': 'application/json' 
-//         }
-//     })
-//     .then(event.target.parentElement.remove())
-// }
-
-function editItem () {
+function editItem() {
     event.preventDefault()
     clearForm()
     let id = event.target.dataset.id
+    console.log(id)
     fetch(BASE_URL+`/items/${id}`)
     .then(resp => resp.json())
     .then(item => {
         let itemFromDiv = document.getElementById('item-form')
-        let listId = Number(event.target.dataset.id)
+        console.log(item)
         let html = `
             <form data-id="${id}">
                 <label>Name</label>
@@ -179,7 +180,7 @@ function editItem () {
                 <input type="checkbox" id="bought" ${item.bought ? "checked" : ""}>
                 <label>Quantity</label>
                 <input type="text" id="quantity" value="${item.quantity}">
-                <input type="hidden" id="list_id" value="${listId}">
+                <input type="hidden" id="list_id" value="${id}">
                 <input type="submit">
             </form>
             `

@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1
   def show
-    render json: @exititem
+    render json: @item
   end
 
   # POST /items
