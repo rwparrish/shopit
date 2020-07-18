@@ -146,6 +146,47 @@ function createItem() {
         })
 }
 
-function deleteItem() {}
+// function deleteItem() {
+//     event.preventDefault()
+//     clearForm()
+
+//     fetch(BASE_URL+`/items/${event.target.dataset.id}`, {
+//         method: 'DELETE',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Accept': 'application/json' 
+//         }
+//     })
+//     .then(event.target.parentElement.remove())
+// }
+
+function editItem () {
+    event.preventDefault()
+    clearForm()
+    let id = event.target.dataset.id
+    fetch(BASE_URL+`/items/${id}`)
+    .then(resp => resp.json())
+    .then(item => {
+        let itemFromDiv = document.getElementById('item-form')
+        let listId = Number(event.target.dataset.id)
+        let html = `
+            <form data-id="${id}">
+                <label>Name</label>
+                <input type="text" id="name" value="${item.name}">
+                <label>Description</label>
+                <input type="text" id="description" value="${item.description}">
+                <label>Bought</label>
+                <input type="checkbox" id="bought" ${item.bought ? "checked" : ""}>
+                <label>Quantity</label>
+                <input type="text" id="quantity" value="${item.quantity}">
+                <input type="hidden" id="list_id" value="${listId}">
+                <input type="submit">
+            </form>
+            `
+    itemFromDiv.innerHTML = html
+    document.querySelector('form').addEventListener('submit', updateItem)
+    })
+}
+
 function updateItem() {}
 
