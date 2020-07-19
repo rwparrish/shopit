@@ -8,19 +8,13 @@ class Item {
         this.list_id = item.list_id
     }
 
-    // renderItem() {
-    //     return `
-    //         <li id="item-${this.id}">
-    //             <a href="#" data-id="${this.id}">${this.name}</a>
-    //             <ul id="items">
-    //             </ul>        
-    //         </li> `
-    // }
+    renderItem() {
+        return `
+            <li id="item-${this.id}"> 
+            ${this.name} ${this.description} ${this.quantity} ${this.bought ? "bought" : "Not yet bought"}
+            <button id='delete' data-id='${this.id}'>Delete</button>
+            <button id='update-item' data-id='${this.id}'>Edit</button>  
+            </li> `
+    }
 
-    // renderUls() {
-    //     let ul = document.querySelector(`li#item-${this.id} #items`)
-    //         this.items.forEach(item => {
-    //         ul.innerHTML += `<li>${item.name}</li>`
-    //     })
-    // }
 }

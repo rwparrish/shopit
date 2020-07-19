@@ -137,15 +137,13 @@ function createItem() {
     })
     .then(resp => resp.json())
     .then(item => {
-            // const showItems = document.querySelector('#show-lists ul')
+            const showItems = document.querySelector('#show-lists ul')
             let newItem = new Item(item)
-            // showItems.innerHTML += newItem.renderList()
-            // shoppingList.renderUls()
+            showItems.innerHTML += newItem.renderItem()
             attachClickToLinks()
             clearForm()
         })
 }
-// not working 
 function deleteItem() {
     event.preventDefault()
     clearForm()
