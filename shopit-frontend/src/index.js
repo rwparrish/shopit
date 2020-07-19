@@ -30,6 +30,8 @@ function clearUls() {
 function clearForm() {
     const listFromDiv = document.getElementById('list-form')
     listFromDiv.innerHTML = ''
+    const itemFromDiv = document.getElementById('item-form')
+    itemFromDiv.innerHTML = ''
 }
 
 function attachClickToLinks() {
@@ -42,7 +44,7 @@ function attachClickToLinks() {
     document.getElementById('lists').addEventListener('click', getLists)
     document.querySelectorAll('#delete').forEach(item => item.addEventListener('click', deleteItem))
     document.querySelectorAll('#update-item').forEach(item => item.addEventListener('click', editItem))
-    document.getElementById('add-item').addEventListener('click', displayCreateItemForm)
+    // document.getElementById('add-item').addEventListener('click', displayCreateItemForm)
 }
 
 

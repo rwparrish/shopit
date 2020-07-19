@@ -84,6 +84,7 @@ function displayList() {
             </li>`
         })
         attachClickToLinks()
+        document.getElementById('add-item').addEventListener('click', displayCreateItemForm)
     })
 }
 

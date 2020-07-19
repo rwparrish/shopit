@@ -67,6 +67,7 @@ function createItem() {
             clearForm()
         })
 }
+
 function deleteItem() {
     event.preventDefault()
     clearForm()
@@ -119,8 +120,9 @@ function updateItem() {
         quantity: document.getElementById('quantity').value,
         list_id: document.getElementById('list_id').value
     }
-
-    fetch(BASE_URL+`/items/${event.target.dataset.id}`, {
+    const id = event.target.dataset.id
+    console.log(id)
+    fetch(BASE_URL+`/items/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(upItem),
         headers: {
