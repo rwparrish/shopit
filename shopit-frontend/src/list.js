@@ -50,7 +50,6 @@ function getLists() {
         lists.forEach(list => {
             let shoppingList = new List(list)
             showLists.innerHTML += shoppingList.renderList()
-            shoppingList.renderUls()
         })
         attachClickToLinks()
     })
