@@ -40,6 +40,22 @@ function displayCreateForm() {
     document.querySelector('form').addEventListener('submit', createList)
 }
 
+function getLists() {
+    clearForm()
+    clearUls()
+    const showLists = document.querySelector('#show-lists ul')
+    fetch(BASE_URL+'/lists')
+    .then(resp => resp.json())
+    .then(lists => {
+        lists.forEach(list => {
+            let shoppingList = new List(list)
+            showLists.innerHTML += shoppingList.renderList()
+            shoppingList.renderUls()
+        })
+        attachClickToLinks()
+    })
+}
+
 function createList() {
     event.preventDefault()
     const list = {
