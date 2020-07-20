@@ -5,7 +5,7 @@ class Item {
         this.description = item.description
         this.bought = item.bought
         this.quantity = item.quantity
-        this.list_id = item.list_id
+        this.list_id = item.list.id
     }
 
     renderItem() {
@@ -116,7 +116,7 @@ function updateItem() {
     let upItem = {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
-        baught: document.getElementById('bought').checked,
+        bought: document.getElementById('bought').checked,
         quantity: document.getElementById('quantity').value,
         list_id: document.getElementById('list_id').value
     }
@@ -133,7 +133,8 @@ function updateItem() {
     .then(resp => resp.json())
     .then(item => {
             let newItem = new Item(item)
-            document.querySelector(`li#list-${item.list.id} #items li#item-${item.id}`).innerHTML = newItem.renderItem()
+            console.log(item.id)
+            document.querySelector(`#show-list ul li#item-${item.id}`).innerHTML = newItem.renderItem()
             attachClickToLinks()
             clearForm()
         })

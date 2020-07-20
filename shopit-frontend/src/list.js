@@ -19,7 +19,7 @@ class List {
     renderUls() {
         let ul = document.querySelector(`li#list-${this.id} #items`)
             this.items.forEach(item => {
-            ul.innerHTML += `<li>${item.name} - ${item.description} - ${item.quantity} - ${item.bought ? "bought" : "Not yet bought"}
+            ul.innerHTML += `<li id="item-${item.id}">${item.name} - ${item.description} - ${item.quantity} - ${item.bought ? "bought" : "Not yet bought"}
             <button id='delete' data-id='${item.id}'>Delete</button>
             <button id='update-item' data-id='${item.id}'>Edit</button>
             </li>`
@@ -78,7 +78,7 @@ function displayList() {
         showList.innerHTML += `<h3>${list.name}</h3>
         <button id='add-item' data-id='${list.id}'>Add Item</button> <ul></ul>`
             list.items.forEach(item => {
-            document.querySelector('#show-list ul').innerHTML += `<li>${item.name} - ${item.description} - ${item.quantity} - ${item.bought ? "bought" : "Not yet bought"}
+            document.querySelector('#show-list ul').innerHTML += `<li id="item-${item.id}">${item.name} - ${item.description} - ${item.quantity} - ${item.bought ? "bought" : "Not yet bought"}
             <button id='delete' data-id='${item.id}'>Delete</button>
             <button id='update-item' data-id='${item.id}'>Edit</button>
             </li>`

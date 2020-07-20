@@ -26,10 +26,10 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
-    if item.update(item_params)
-      render json: item
+    if @item.update(item_params)
+      render json: @item
     else
-      render json: item.errors, status: :unprocessable_entity
+      render json: @item.errors, status: :unprocessable_entity
     end
   end
 
